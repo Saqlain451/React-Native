@@ -1,11 +1,13 @@
 
 import { StyleSheet, View } from 'react-native';
 import NetFlix from "./Src/Screens/NetFlix";
+import Slider from "./Src/Screens/Slider";
 
 export default function App() {
   return (
     <View style={styles.container}>
       <NetFlix/>
+      <Slider/>
     </View>
   );
 }
