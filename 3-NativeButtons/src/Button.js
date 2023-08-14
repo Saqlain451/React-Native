@@ -5,7 +5,7 @@ const Buttons = ()=>{
     return(
         <>
             <Button title={"Click me"} onPress={()=>{
-                console.log(Alert.alert("I am clicked"))}} color={"green"}/>
+                console.log(Alert.alert(`I am clicked}`))}} color={"green"}/>
         </>
     )
 }

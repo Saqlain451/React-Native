@@ -1,11 +1,13 @@
 
 import { StyleSheet, View } from 'react-native';
 import Buttons from "./src/Button";
+import TouchControlButton from "./src/TouchControlButton";
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Buttons/>
+      <TouchControlButton/>
     </View>
   );
 }
