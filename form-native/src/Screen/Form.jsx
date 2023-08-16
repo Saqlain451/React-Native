@@ -40,8 +40,23 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        width: "48%",
+        width: "46%",
         borderRadius: 5
+    },
+    btn2Style: {
+        backgroundColor: "transparent",
+        borderWidth: 1.5,
+        borderColor: "#1C9C7D",
+    },
+
+    forgotBtnStyle: {
+        backgroundColor: "#1C9C7D",
+        height: 45,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 5,
+        marginBottom:10,
     },
 
     buttonWrapper: {
@@ -50,44 +65,50 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         gap: 20,
         marginVertical: 20,
-        flexDirection: "row"
+        flexDirection: "row",
     },
 })
 
 
 const Form = () => {
 
-    const [mail, setMail] = useState("");
-    const [pass, setPass] = useState("");
-    const changeHandler = (e) => {
-        setMail(e);
+    const [inpData, setInpData] = useState({
+        mail: "",
+        pass: "",
+    })
+
+    const handleChange = (name, event) => {
+        setInpData({...inpData, [name]: event});
     }
-
-
     return (
         <View style={styles.formWrapeer}>
-
             <Text style={styles.loginText}> Login Form</Text>
             <Text style={styles.labelText}>Email id</Text>
             <TextInput autoCapitalize={"none"} autoComplete={"off"}
-                       style={styles.inputText} value={mail} onChangeText={changeHandler}/>
+                       style={styles.inputText} value={inpData.mail} onChangeText={(e) => {
+                handleChange('mail', e)
+            }}/>
             <Text style={styles.labelText}>Password </Text>
             <TextInput secureTextEntry autoComplete={"off"}
-                       autoCapitalize={"none"} style={styles.inputText} value={pass} onChangeText={(e) => {
-                setPass(e)
+                       autoCapitalize={"none"} style={styles.inputText} value={inpData.pass} onChangeText={(e) => {
+                handleChange('pass', e)
             }}/>
 
-
+            {/* todo -----------Form Buttons --------------*/}
             <View style={styles.buttonWrapper}>
                 <TouchableOpacity style={styles.buttonStyle} onPress={() => {
-                    console.log({mail, pass})
+                    console.log(inpData)
                 }}>
                     <Text style={{fontSize: 17, color: "white"}}>Log In</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonStyle}>
-                    <Text style={{fontSize: 17, color: "white"}}>Register</Text>
+                <TouchableOpacity style={[styles.buttonStyle, styles.btn2Style]}>
+                    <Text style={{fontSize: 17, color: "#1C9C7D"}}>Register</Text>
                 </TouchableOpacity>
             </View>
+
+            <TouchableOpacity style={styles.forgotBtnStyle}>
+                <Text style={{fontSize: 17, color: "white"}}>Forgot Password</Text>
+            </TouchableOpacity>
 
         </View>
     );
