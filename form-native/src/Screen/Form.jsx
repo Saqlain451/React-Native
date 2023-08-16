@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 5,
-        marginBottom:10,
+        marginBottom: 10,
     },
 
     buttonWrapper: {
@@ -80,6 +80,29 @@ const Form = () => {
     const handleChange = (name, event) => {
         setInpData({...inpData, [name]: event});
     }
+
+    const postApi = async (url, postData) => {
+        try {
+            const data = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(postData)
+            });
+
+            const res = await data.json();
+            if (res.msg){
+                setInpData({
+                    mail : "",
+                    pass: "",
+                })
+            }
+            console.log(res);
+        } catch (error) {
+            console.error(error)
+        }
+    }
     return (
         <View style={styles.formWrapeer}>
             <Text style={styles.loginText}> Login Form</Text>
@@ -97,7 +120,7 @@ const Form = () => {
             {/* todo -----------Form Buttons --------------*/}
             <View style={styles.buttonWrapper}>
                 <TouchableOpacity style={styles.buttonStyle} onPress={() => {
-                    console.log(inpData)
+                    postApi("https://task-management-dd2m.onrender.com/loginUser", {...inpData})
                 }}>
                     <Text style={{fontSize: 17, color: "white"}}>Log In</Text>
                 </TouchableOpacity>
