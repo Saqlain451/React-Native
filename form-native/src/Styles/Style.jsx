@@ -1,10 +1,17 @@
 import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent : "center",
+        alignItems :"center",
+        backgroundColor : '#eaeaea'
+    },
     formWrapeer: {
         backgroundColor: "#eaeaea",
         padding: 20,
         marginHorizontal: 30,
+        marginVertical:100,
         borderRadius: 5,
         shadowColor: '#bebebe',
         shadowOffset: {width: 5, height: 5},
