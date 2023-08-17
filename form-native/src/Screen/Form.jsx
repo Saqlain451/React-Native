@@ -1,74 +1,7 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-
-
-const styles = StyleSheet.create({
-    formWrapeer: {
-        backgroundColor: "#eaeaea",
-        padding: 20,
-        marginHorizontal: 30,
-        borderRadius: 5,
-        shadowColor: '#bebebe',
-        shadowOffset: {width: 5, height: 5},
-        shadowRadius: 3,
-        shadowOpacity: 1,
-        elevation: 10,
-    },
-    loginText: {
-        fontSize: 30,
-        fontWeight: "bold",
-        color: "#1C9C7D",
-        textAlign: "center"
-    },
-    labelText: {
-        fontSize: 15,
-        marginTop: 20,
-    },
-    inputText: {
-        borderWidth: 2,
-        borderStyle: "solid",
-        borderColor: "#1C9C7D",
-        borderRadius: 5,
-        height: 45,
-        paddingHorizontal: 10,
-        marginTop: 5,
-    },
-
-    buttonStyle: {
-        backgroundColor: "#1C9C7D",
-        height: 45,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "46%",
-        borderRadius: 5
-    },
-    btn2Style: {
-        backgroundColor: "transparent",
-        borderWidth: 1.5,
-        borderColor: "#1C9C7D",
-    },
-
-    forgotBtnStyle: {
-        backgroundColor: "#1C9C7D",
-        height: 45,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 5,
-        marginBottom: 10,
-    },
-
-    buttonWrapper: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 20,
-        marginVertical: 20,
-        flexDirection: "row",
-    },
-})
-
+import {Alert, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {styles} from "../Styles/Style";
+import {MaterialIndicator} from 'react-native-indicators'
 
 const Form = () => {
 
@@ -77,11 +10,14 @@ const Form = () => {
         pass: "",
     })
 
+    const [isLoginLoading, setIsLoginLoading] = useState(false);
+
     const handleChange = (name, event) => {
         setInpData({...inpData, [name]: event});
     }
 
     const postApi = async (url, postData) => {
+        setIsLoginLoading(true);
         try {
             const data = await fetch(url, {
                 method: "POST",
@@ -92,15 +28,18 @@ const Form = () => {
             });
 
             const res = await data.json();
-            if (res.msg){
+            if (res.msg) {
+                setIsLoginLoading(false);
+                Alert.alert(res.msg);
                 setInpData({
-                    mail : "",
+                    mail: "",
                     pass: "",
                 })
             }
             console.log(res);
         } catch (error) {
             console.error(error)
+            setIsLoginLoading(false);
         }
     }
     return (
@@ -122,7 +61,8 @@ const Form = () => {
                 <TouchableOpacity style={styles.buttonStyle} onPress={() => {
                     postApi("https://task-management-dd2m.onrender.com/loginUser", {...inpData})
                 }}>
-                    <Text style={{fontSize: 17, color: "white"}}>Log In</Text>
+                    {isLoginLoading ? <MaterialIndicator size={30} color="white"/> :
+                        <Text style={{fontSize: 17, color: "white"}}>Log In</Text>}
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.buttonStyle, styles.btn2Style]}>
                     <Text style={{fontSize: 17, color: "#1C9C7D"}}>Register</Text>
