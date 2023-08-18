@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {styles} from "../Styles/Style";
 import {MaterialIndicator} from 'react-native-indicators'
 import {Checkbox} from "expo-checkbox";
+import {Storage} from 'expo-storage'
 
 const Form = ({navigation}) => {
 
@@ -33,7 +34,10 @@ const Form = ({navigation}) => {
             const res = await data.json();
             if (res.msg) {
                 setIsLoginLoading(false);
-                console.log(res.userDetails);
+                res.userDetails ? await Storage.setItem({key: "user", value: JSON.stringify(res.userDetails)}) : null;
+                setTimeout(async () => {
+                    await Storage.removeItem({key: "user"});
+                }, 2000);
                 Alert.alert(res.msg);
                 setInpData({
                     mail: "",
@@ -42,13 +46,19 @@ const Form = ({navigation}) => {
                 setCheckBoxVal(false);
                 navigation.navigate("home")
             }
-            console.log(res);
         } catch (error) {
             console.error(error)
             setIsLoginLoading(false);
         }
     }
 
+    useEffect(() => {
+        const userFind = async () => {
+            const user = await Storage.getItem({key: "user"});
+            user && navigation.navigate("home")
+        }
+        userFind()
+    }, [navigation]);
 
     return (
         <View style={styles.container}>

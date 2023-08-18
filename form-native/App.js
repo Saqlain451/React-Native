@@ -10,7 +10,7 @@ export default function App() {
     return (
 
         <NavigationContainer>
-            <Navigator initialRouteName={"login"}>
+            <Navigator initialRouteName={"home"}>
                 <Screen name={"login"} component={Form}/>
                 <Screen name={"home"} component={Home}/>
             </Navigator>

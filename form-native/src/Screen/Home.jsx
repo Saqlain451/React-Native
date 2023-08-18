@@ -1,14 +1,29 @@
-import React, {useEffect} from 'react';
-import {Text} from "react-native";
+import React, {useEffect, useState} from 'react';
+import {Text, View} from "react-native";
+import {Storage} from "expo-storage";
+import {styles} from "../Styles/Style";
+
+const Home = ({navigation}) => {
+    const [userName, setuserName] = useState("")
 
 
-const Home = () => {
-
-
+    useEffect(() => {
+        const userFInd = async () => {
+            const userDetails = JSON.parse(await Storage.getItem({key: "user"})) || undefined;
+           if(!userDetails){
+               navigation.navigate("login")
+           }else{
+               setuserName(userDetails.name)
+           }
+        }
+        userFInd();
+    }, [navigation]);
     return (
-        <Text>
-            Home
-        </Text>
+        <View style={styles.container}>
+            <Text>
+                This is your home page {userName}
+            </Text>
+        </View>
     );
 };
 
