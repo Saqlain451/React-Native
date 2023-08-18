@@ -9,7 +9,6 @@ export default function App() {
     const {Navigator,Screen} = Stack
     return (
 
-
         <NavigationContainer>
             <Navigator initialRouteName={"login"}>
                 <Screen name={"login"} component={Form}/>

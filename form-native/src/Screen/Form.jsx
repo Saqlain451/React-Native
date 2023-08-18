@@ -33,11 +33,13 @@ const Form = ({navigation}) => {
             const res = await data.json();
             if (res.msg) {
                 setIsLoginLoading(false);
+                console.log(res.userDetails);
                 Alert.alert(res.msg);
                 setInpData({
                     mail: "",
                     pass: "",
                 })
+                setCheckBoxVal(false);
                 navigation.navigate("home")
             }
             console.log(res);
