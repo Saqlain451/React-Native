@@ -10,11 +10,12 @@ const Home = ({navigation}) => {
     useEffect(() => {
         const userFInd = async () => {
             const userDetails = JSON.parse(await Storage.getItem({key: "user"})) || undefined;
-           if(!userDetails){
-               navigation.navigate("login")
-           }else{
-               setuserName(userDetails.name)
-           }
+            if (!userDetails) {
+                navigation.navigate("login")
+            } else {
+                setuserName(userDetails.name)
+                console.log(userDetails.name)
+            }
         }
         userFInd();
     }, [navigation]);

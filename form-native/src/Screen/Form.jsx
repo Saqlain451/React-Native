@@ -37,7 +37,7 @@ const Form = ({navigation}) => {
                 res.userDetails ? await Storage.setItem({key: "user", value: JSON.stringify(res.userDetails)}) : null;
                 setTimeout(async () => {
                     await Storage.removeItem({key: "user"});
-                }, 2000);
+                }, 300000);
                 Alert.alert(res.msg);
                 setInpData({
                     mail: "",
