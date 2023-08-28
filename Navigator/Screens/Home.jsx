@@ -3,14 +3,16 @@ import {Button, StyleSheet, Text, View} from "react-native";
 
 const Home = ({navigation}) => {
     return (
-        <View style={styles.container}>
-            <Text>
-                Home Component
-            </Text>
-            <Button title={"Let's go"} onPress={()=>{
-                navigation.navigate("About")
-            }}/>
-        </View>
+        <>
+            <View style={styles.container}>
+                <Text>
+                    Home Component
+                </Text>
+                <Button title={"Let's go"} onPress={() => {
+                    navigation.navigate("About")
+                }}/>
+            </View>
+        </>
     );
 };
 
